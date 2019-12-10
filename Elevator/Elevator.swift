@@ -29,10 +29,23 @@ class Elevator {
     var currentFloor: Int = 1
     
     var doorsIsClosed: Bool = true
+    var destination: Int?
     
     func call(to callingFloor: Int) {
-        if callingFloor == currentFloor {
+        guard callingFloor != currentFloor else {
             doorsIsClosed = false
-        } 
+            return
+        }
+        
+        move(to: callingFloor)
+    }
+    
+    private func move(to floor: Int) {
+        destination = floor
+        
+        let timeToWait = TimeInterval(abs(currentFloor - floor))
+        DispatchQueue.main.asyncAfter(deadline: .now() + timeToWait) {
+            self.currentFloor = floor
+        }
     }
 }

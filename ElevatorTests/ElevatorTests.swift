@@ -38,7 +38,28 @@ class ElevatorTests: XCTestCase {
         
         XCTAssertTrue(elevator.doorsIsClosed)
     }
+    
+    func test_elevatorOn1stFloor_whenCallTo2ndFloor_shouldMoveTo2ndFloor() {
+        elevator.currentFloor = 1
+        
+        elevator.call(to: 2)
+        
+        XCTAssertEqual(elevator.destination, 2)
+    }
+    
+    func test_on1stFloor_whenCallTo2ndAndWait_shouldBeOn2ndFloor() {
+        elevator.currentFloor = 1
+        
+        elevator.call(to: 2)
+        
+        wait(1)
+        XCTAssertEqual(elevator.currentFloor, 2)
+    }
 
+    func wait(_ sec: Int) {
+        RunLoop.main.run(until: Date().addingTimeInterval(TimeInterval(sec)))
+    }
+    
     private var elevator: Elevator!
     override func setUp() {
         elevator = Elevator(floors: 16)
