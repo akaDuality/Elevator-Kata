@@ -42,6 +42,7 @@ class Elevator {
     
     private func move(to floor: Int) {
         destination = floor
+        doorsIsClosed = true
         
         let timeToWait = TimeInterval(abs(currentFloor - floor))
         DispatchQueue.main.asyncAfter(deadline: .now() + timeToWait) {

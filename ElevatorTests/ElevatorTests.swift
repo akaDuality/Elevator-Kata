@@ -55,6 +55,15 @@ class ElevatorTests: XCTestCase {
         wait(1)
         XCTAssertEqual(elevator.currentFloor, 2)
     }
+    
+    func test() {
+        elevator.currentFloor = 1
+        
+        elevator.call(to: 1)
+        elevator.call(to: 2)
+        wait(1)
+        XCTAssertTrue(elevator.doorsIsClosed)
+    }
 
     func wait(_ sec: Int) {
         RunLoop.main.run(until: Date().addingTimeInterval(TimeInterval(sec)))
