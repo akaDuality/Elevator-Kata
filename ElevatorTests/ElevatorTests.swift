@@ -56,7 +56,7 @@ class ElevatorTests: XCTestCase {
         XCTAssertEqual(elevator.currentFloor, 2)
     }
     
-    func test() {
+    func test_whenMoveElevatorAfterMansEnter_shouldCloseDoors() {
         elevator.currentFloor = 1
         
         elevator.call(to: 1)
