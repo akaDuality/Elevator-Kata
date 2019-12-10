@@ -10,6 +10,7 @@
 		13C9D50323A024A60046741F /* Elevator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13C9D4F923A024A60046741F /* Elevator.framework */; };
 		13C9D50823A024A60046741F /* ElevatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C9D50723A024A60046741F /* ElevatorTests.swift */; };
 		13C9D50A23A024A60046741F /* Elevator.h in Headers */ = {isa = PBXBuildFile; fileRef = 13C9D4FC23A024A60046741F /* Elevator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		13C9D51423A024D10046741F /* Elevator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C9D51323A024D10046741F /* Elevator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +30,7 @@
 		13C9D50223A024A60046741F /* ElevatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ElevatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		13C9D50723A024A60046741F /* ElevatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElevatorTests.swift; sourceTree = "<group>"; };
 		13C9D50923A024A60046741F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		13C9D51323A024D10046741F /* Elevator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Elevator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 			children = (
 				13C9D4FC23A024A60046741F /* Elevator.h */,
 				13C9D4FD23A024A60046741F /* Info.plist */,
+				13C9D51323A024D10046741F /* Elevator.swift */,
 			);
 			path = Elevator;
 			sourceTree = "<group>";
@@ -148,6 +151,7 @@
 				TargetAttributes = {
 					13C9D4F823A024A60046741F = {
 						CreatedOnToolsVersion = 11.2.1;
+						LastSwiftMigration = 1120;
 					};
 					13C9D50123A024A60046741F = {
 						CreatedOnToolsVersion = 11.2.1;
@@ -195,6 +199,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				13C9D51423A024D10046741F /* Elevator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,6 +345,7 @@
 		13C9D50E23A024A60046741F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -355,6 +361,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.akaDuality.Elevator;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -363,6 +370,7 @@
 		13C9D50F23A024A60046741F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -386,6 +394,7 @@
 		13C9D51123A024A60046741F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = ElevatorTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -403,6 +412,7 @@
 		13C9D51223A024A60046741F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = ElevatorTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
