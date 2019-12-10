@@ -22,13 +22,11 @@ struct Building {
 
 class Elevator {
     init(floors: Int) {
-        self.floors = floors
+        self.floorsCount = floors
     }
     
-    let floors: Int
+    let floorsCount: Int
     var currentFloor: Int = 1
-    
-    var doors: DoorState = .close
     var destination: Int?
     
     func call(to callingFloor: Int) {
@@ -41,15 +39,21 @@ class Elevator {
     }
     
     private func move(to floor: Int) {
-        destination = floor
         closeDoor()
         
+        simulateMovement(to: floor)
+    }
+    
+    private func simulateMovement(to floor: Int) {
+        destination = floor
         let timeToWait = TimeInterval(abs(currentFloor - floor))
         DispatchQueue.main.asyncAfter(deadline: .now() + timeToWait) {
             self.currentFloor = floor
         }
     }
-    
+
+    // MARK: - Doors
+    var doors: DoorState = .close
     private func openDoor() {
         doors = .open
     }

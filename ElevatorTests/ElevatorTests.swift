@@ -12,7 +12,7 @@ import XCTest
 class ElevatorTests: XCTestCase {
     
     func test_elevatorHasFloors() {
-        XCTAssertEqual(elevator.floors, 16)
+        XCTAssertEqual(elevator.floorsCount, 16)
     }
   
     func test_elevatorIsPlacedOnFirstFloorByDefault() {
