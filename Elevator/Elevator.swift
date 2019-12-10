@@ -40,18 +40,14 @@ class Elevator {
     
     private func move(to floor: Int) {
         closeDoor()
+        destination = floor
         
-        simulateMovement(to: floor)
+        let floorDiff = currentFloor - floor
+        engine.move(to: floorDiff, onChange: {
+            self.currentFloor = floor
+        })
     }
     
-    private func simulateMovement(to floor: Int) {
-        destination = floor
-        let timeToWait = TimeInterval(abs(currentFloor - floor))
-        DispatchQueue.main.asyncAfter(deadline: .now() + timeToWait) {
-            self.currentFloor = floor
-        }
-    }
-
     // MARK: - Doors
     var doors: DoorState = .close
     private func openDoor() {
@@ -65,5 +61,16 @@ class Elevator {
     enum DoorState {
         case close
         case open
+    }
+    
+    private let engine = Engine()
+}
+
+private class Engine {
+    func move(to floorDiff: Int, onChange: @escaping () -> Void) {
+        let timeToWait = TimeInterval(abs(floorDiff))
+        DispatchQueue.main.asyncAfter(deadline: .now() + timeToWait) {
+            onChange()
+        }
     }
 }
