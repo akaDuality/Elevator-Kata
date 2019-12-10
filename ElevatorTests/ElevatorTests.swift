@@ -1,39 +1,48 @@
 //
-//  ElevatorTests.swift
+//  ElevatorTests\.swift
 //  ElevatorTests
 //
 //  Created by Mikhail Rubanov on 10.12.2019.
 //  Copyright © 2019 akaDuality. All rights reserved.
-//
+
 
 import XCTest
 @testable import Elevator
 
-class BuildingTests: XCTestCase {
-
-    func test_buildingHas16Floors() {
-        let building = Building(floors: 16)
+class ElevatorTests: XCTestCase {
+    
+    func test_elevatorHasFloors() {
+        let elevator = Elevator(floors: 16)
         
-        XCTAssertEqual(building.floors, 16)
+        XCTAssertEqual(elevator.floors, 16)
     }
-    
-    func test_buildingIsPossibleWithoutElevator() {
-        let building = Building(floors: 16)
+  
+    func test_elevatorIsPlacedOnFirstFloorByDefault() {
+        let elevator = Elevator(floors: 16)
         
-        XCTAssertNil(building.elevator)
+        XCTAssertEqual(elevator.currentFloor, 1)
     }
     
-    func test_buildingHasOptionalElevator() {
-        let building = Building(floors: 16, elevator: Elevator())
+    func test_elevarDoors_areClosedBydefault() {
+        let elevator = Elevator(floors: 16)
+        
+        XCTAssertTrue(elevator.doorsIsClosed)
+    }
+    
+    func test_elevatorOn1stFloor_whenCallTo1stFloor_shouldOpenDoor() {
+        let elevator = Elevator(floors: 16)
+        
+        elevator.call()
+        
+        XCTAssertFalse(elevator.doorsIsClosed)
+    }
 
-        XCTAssertNotNil(building.elevator)
-    }
-    
     override func setUp() {
-        
+        // Put setup code here. This method is called before the invocation of each test method in the class.
     }
 
     override func tearDown() {
-        
+        // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
+
 }

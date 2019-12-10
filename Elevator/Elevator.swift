@@ -18,6 +18,19 @@ struct Building {
     }
 }
 
-struct Elevator {
+
+
+class Elevator {
+    init(floors: Int) {
+        self.floors = floors
+    }
     
+    let floors: Int
+    var currentFloor: Int = 1
+    
+    var doorsIsClosed: Bool = true
+    
+    func call() {
+        doorsIsClosed = false
+    }
 }

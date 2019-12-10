@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		136C4FD923A027CB0055851E /* ElevatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136C4FD823A027CB0055851E /* ElevatorTests.swift */; };
 		13C9D50323A024A60046741F /* Elevator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13C9D4F923A024A60046741F /* Elevator.framework */; };
-		13C9D50823A024A60046741F /* ElevatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C9D50723A024A60046741F /* ElevatorTests.swift */; };
+		13C9D50823A024A60046741F /* BuildingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C9D50723A024A60046741F /* BuildingTests.swift */; };
 		13C9D50A23A024A60046741F /* Elevator.h in Headers */ = {isa = PBXBuildFile; fileRef = 13C9D4FC23A024A60046741F /* Elevator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		13C9D51423A024D10046741F /* Elevator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C9D51323A024D10046741F /* Elevator.swift */; };
 /* End PBXBuildFile section */
@@ -24,11 +25,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		136C4FD823A027CB0055851E /* ElevatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElevatorTests.swift; sourceTree = "<group>"; };
 		13C9D4F923A024A60046741F /* Elevator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Elevator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		13C9D4FC23A024A60046741F /* Elevator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Elevator.h; sourceTree = "<group>"; };
 		13C9D4FD23A024A60046741F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		13C9D50223A024A60046741F /* ElevatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ElevatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		13C9D50723A024A60046741F /* ElevatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElevatorTests.swift; sourceTree = "<group>"; };
+		13C9D50723A024A60046741F /* BuildingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingTests.swift; sourceTree = "<group>"; };
 		13C9D50923A024A60046741F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		13C9D51323A024D10046741F /* Elevator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Elevator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -83,7 +85,8 @@
 		13C9D50623A024A60046741F /* ElevatorTests */ = {
 			isa = PBXGroup;
 			children = (
-				13C9D50723A024A60046741F /* ElevatorTests.swift */,
+				13C9D50723A024A60046741F /* BuildingTests.swift */,
+				136C4FD823A027CB0055851E /* ElevatorTests.swift */,
 				13C9D50923A024A60046741F /* Info.plist */,
 			);
 			path = ElevatorTests;
@@ -207,7 +210,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				13C9D50823A024A60046741F /* ElevatorTests.swift in Sources */,
+				136C4FD923A027CB0055851E /* ElevatorTests.swift in Sources */,
+				13C9D50823A024A60046741F /* BuildingTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
