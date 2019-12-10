@@ -19,6 +19,7 @@ class ElevatorTests: XCTestCase {
         XCTAssertEqual(elevator.currentFloor, 1)
     }
     
+    // MARK: - Doors
     func test_elevarDoors_areClosedBydefault() {
         XCTAssertEqual(elevator.doors, .close)
     }
@@ -31,12 +32,25 @@ class ElevatorTests: XCTestCase {
         XCTAssertEqual(elevator.doors, .open)
     }
     
-    func test_elevatorOn2ndFloor_whenCallTo1stFloor_shouldNotOpenDoor() {
+    func test_elevatorOn2ndFloor_whenCallTo1stFloor_shouldNotOpenDoorImmediately() {
         elevator.currentFloor = 2
         
         elevator.call(to: 1)
         
         XCTAssertEqual(elevator.doors, .close)
+    }
+    
+    func test_elevatorOn2ndFloor_whenCallTo1stFloor_shouldOpenDoorWhenArrived() {
+        elevator.currentFloor = 2
+        
+        elevator.call(to: 1)
+        wait(1)
+        XCTAssertEqual(elevator.doors, .open)
+    }
+    
+    // MARK: - Moving
+    func test_elevatorInNotMovingByDefault() {
+        XCTAssertFalse(elevator.isMoving)
     }
     
     func test_elevatorOn1stFloor_whenCallTo2ndFloor_shouldMoveTo2ndFloor() {
@@ -45,6 +59,17 @@ class ElevatorTests: XCTestCase {
         elevator.call(to: 2)
         
         XCTAssertEqual(elevator.destination, 2)
+        XCTAssertTrue(elevator.isMoving)
+    }
+    
+    func test_whenElevatorHitsDestination_shouldStopMovingAndForgetDestination() {
+        elevator.currentFloor = 1
+        
+        elevator.call(to: 2)
+        wait(1)
+        
+        XCTAssertNil(elevator.destination)
+        XCTAssertFalse(elevator.isMoving)
     }
     
     func test_on1stFloor_whenCallTo2ndAndWait_shouldBeOn2ndFloor() {
@@ -56,13 +81,21 @@ class ElevatorTests: XCTestCase {
         XCTAssertEqual(elevator.currentFloor, 2)
     }
     
-    func test_whenMoveElevatorAfterMansEnter_shouldCloseDoors() {
+    func test_whenMoveElevatorAfterManEnters_shouldCloseDoors() {
+        elevator.currentFloor = 1
+        
+        elevator.call(to: 1)
+        elevator.call(to: 2)
+        XCTAssertEqual(elevator.doors, .close)
+    }
+    
+    func test_whenMoveElevatorAfterManEnters_andArriveToFloor_shouldOpenDoors() {
         elevator.currentFloor = 1
         
         elevator.call(to: 1)
         elevator.call(to: 2)
         wait(1)
-        XCTAssertEqual(elevator.doors, .close)
+        XCTAssertEqual(elevator.doors, .open)
     }
 
     func wait(_ sec: Int) {

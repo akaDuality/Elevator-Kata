@@ -29,6 +29,10 @@ class Elevator {
     var currentFloor: Int = 1
     var destination: Int?
     
+    var isMoving: Bool {
+        return destination != nil
+    }
+    
     func call(to callingFloor: Int) {
         guard callingFloor != currentFloor else {
             openDoor()
@@ -44,8 +48,14 @@ class Elevator {
         
         let floorDiff = currentFloor - floor
         engine.move(to: floorDiff, onChange: {
-            self.currentFloor = floor
+            self.finishMovement(on: floor)
         })
+    }
+    
+    private func finishMovement(on floor: Int) {
+        currentFloor = floor
+        destination = nil
+        openDoor()
     }
     
     // MARK: - Doors
