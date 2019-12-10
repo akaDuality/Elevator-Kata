@@ -30,7 +30,9 @@ class Elevator {
     
     var doorsIsClosed: Bool = true
     
-    func call() {
-        doorsIsClosed = false
+    func call(to callingFloor: Int) {
+        if callingFloor == currentFloor {
+            doorsIsClosed = false
+        } 
     }
 }

@@ -31,10 +31,20 @@ class ElevatorTests: XCTestCase {
     
     func test_elevatorOn1stFloor_whenCallTo1stFloor_shouldOpenDoor() {
         let elevator = Elevator(floors: 16)
+        elevator.currentFloor = 1
         
-        elevator.call()
+        elevator.call(to: 1)
         
         XCTAssertFalse(elevator.doorsIsClosed)
+    }
+    
+    func test_elevatorOn2ndFloor_whenCallTo1stFloor_shouldNotOpenDoor() {
+        let elevator = Elevator(floors: 16)
+        elevator.currentFloor = 2
+        
+        elevator.call(to: 1)
+        
+        XCTAssertTrue(elevator.doorsIsClosed)
     }
 
     override func setUp() {
