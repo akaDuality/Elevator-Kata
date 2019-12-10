@@ -20,7 +20,7 @@ class ElevatorTests: XCTestCase {
     }
     
     func test_elevarDoors_areClosedBydefault() {
-        XCTAssertTrue(elevator.doorsIsClosed)
+        XCTAssertEqual(elevator.doors, .close)
     }
     
     func test_elevatorOn1stFloor_whenCallTo1stFloor_shouldOpenDoor() {
@@ -28,7 +28,7 @@ class ElevatorTests: XCTestCase {
         
         elevator.call(to: 1)
         
-        XCTAssertFalse(elevator.doorsIsClosed)
+        XCTAssertEqual(elevator.doors, .open)
     }
     
     func test_elevatorOn2ndFloor_whenCallTo1stFloor_shouldNotOpenDoor() {
@@ -36,7 +36,7 @@ class ElevatorTests: XCTestCase {
         
         elevator.call(to: 1)
         
-        XCTAssertTrue(elevator.doorsIsClosed)
+        XCTAssertEqual(elevator.doors, .close)
     }
     
     func test_elevatorOn1stFloor_whenCallTo2ndFloor_shouldMoveTo2ndFloor() {
@@ -62,7 +62,7 @@ class ElevatorTests: XCTestCase {
         elevator.call(to: 1)
         elevator.call(to: 2)
         wait(1)
-        XCTAssertTrue(elevator.doorsIsClosed)
+        XCTAssertEqual(elevator.doors, .close)
     }
 
     func wait(_ sec: Int) {
