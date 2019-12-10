@@ -35,7 +35,7 @@ class Elevator {
     
     func call(to callingFloor: Int) {
         guard callingFloor != currentFloor else {
-            openDoor()
+            doors.open()
             return
         }
         
@@ -43,7 +43,7 @@ class Elevator {
     }
     
     private func move(to floor: Int) {
-        closeDoor()
+        doors.close()
         destination = floor
         
         let floorDiff = currentFloor - floor
@@ -55,25 +55,27 @@ class Elevator {
     private func finishMovement(on floor: Int) {
         currentFloor = floor
         destination = nil
-        openDoor()
+        doors.open()
     }
     
-    // MARK: - Doors
-    var doors: DoorState = .close
-    private func openDoor() {
-        doors = .open
-    }
-    
-    private func closeDoor() {
-        doors = .close
-    }
-    
+    let doors = Doors()
+    private let engine = Engine()
+}
+
+class Doors {
+    var state: DoorState = .close
     enum DoorState {
         case close
         case open
     }
     
-    private let engine = Engine()
+    fileprivate func open() {
+        state = .open
+    }
+    
+    fileprivate func close() {
+        state = .close
+    }
 }
 
 private class Engine {
