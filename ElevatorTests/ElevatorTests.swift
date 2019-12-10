@@ -9,12 +9,24 @@
 import XCTest
 @testable import Elevator
 
-class ElevatorTests: XCTestCase {
+class BuildingTests: XCTestCase {
 
     func test_buildingHas16Floors() {
         let building = Building(floors: 16)
         
         XCTAssertEqual(building.floors, 16)
+    }
+    
+    func test_buildingIsPossibleWithoutElevator() {
+        let building = Building(floors: 16)
+        
+        XCTAssertNil(building.elevator)
+    }
+    
+    func test_buildingHasOptionalElevator() {
+        let building = Building(floors: 16, elevator: Elevator())
+
+        XCTAssertNotNil(building.elevator)
     }
     
     override func setUp() {

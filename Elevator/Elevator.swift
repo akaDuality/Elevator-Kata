@@ -10,5 +10,14 @@ import Foundation
 
 struct Building {
     let floors: Int
+    let elevator: Elevator?
+    
+    init(floors: Int, elevator: Elevator? = nil) {
+        self.floors = floors
+        self.elevator = elevator
+    }
 }
 
+struct Elevator {
+    
+}
