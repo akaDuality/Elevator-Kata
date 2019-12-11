@@ -24,8 +24,11 @@ class BuildingTests: XCTestCase {
     }
     
     func test_buildingHasOptionalElevator() {
-        let building = Building(floors: 16,
-                                elevator: Elevator(floors: 16))
+        let building = Building(
+            floors: 16,
+            elevator: Elevator(
+                floors: 16,
+                engine: ManualEngine()))
 
         XCTAssertNotNil(building.elevator)
     }

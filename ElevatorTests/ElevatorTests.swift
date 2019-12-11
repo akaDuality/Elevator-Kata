@@ -104,11 +104,19 @@ class ElevatorTests: XCTestCase {
     
     private var elevator: Elevator!
     override func setUp() {
-        elevator = Elevator(floors: 16)
+        elevator = Elevator(floors: 16, engine: ManualEngine())
     }
 
     override func tearDown() {
         elevator = nil
     }
+}
 
+class ManualEngine: EngineProtocol {
+    func move(to floorDiff: Int, onChange: @escaping () -> Void) {
+        let timeToWait = TimeInterval(abs(floorDiff))
+        DispatchQueue.main.asyncAfter(deadline: .now() + timeToWait) {
+            onChange()
+        }
+    }
 }

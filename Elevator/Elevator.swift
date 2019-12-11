@@ -21,8 +21,9 @@ struct Building {
 
 
 class Elevator {
-    init(floors: Int) {
+    init(floors: Int, engine: EngineProtocol) {
         self.floorsCount = floors
+        self.engine = engine
     }
     
     let floorsCount: Int
@@ -59,7 +60,7 @@ class Elevator {
     }
     
     let doors = Doors()
-    private let engine = Engine()
+    private let engine: EngineProtocol
 }
 
 class Doors {
@@ -78,11 +79,7 @@ class Doors {
     }
 }
 
-private class Engine {
-    func move(to floorDiff: Int, onChange: @escaping () -> Void) {
-        let timeToWait = TimeInterval(abs(floorDiff))
-        DispatchQueue.main.asyncAfter(deadline: .now() + timeToWait) {
-            onChange()
-        }
-    }
+protocol EngineProtocol {
+    func move(to floorDiff: Int, onChange: @escaping () -> Void)
 }
+
