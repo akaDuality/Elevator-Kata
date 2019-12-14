@@ -91,20 +91,22 @@ class ElevatorTests: XCTestCase {
     
     func test_whenMoveElevatorAfterManEnters_andArriveToFloor_shouldOpenDoors() {
         elevator.currentFloor = 1
+        elevator.call(to: 1) // Open doors, enter
         
-        elevator.call(to: 1)
         elevator.call(to: 2)
         wait(1)
         XCTAssertEqual(elevator.doors.state, .open)
     }
 
     func wait(_ sec: Int) {
-        RunLoop.main.run(until: Date().addingTimeInterval(TimeInterval(sec)))
+        engine.wait(sec)
     }
     
     private var elevator: Elevator!
+    private var engine: ManualEngine!
     override func setUp() {
-        elevator = Elevator(floors: 16, engine: ManualEngine())
+        engine = ManualEngine()
+        elevator = Elevator(floors: 16, engine: engine)
     }
 
     override func tearDown() {
@@ -113,10 +115,16 @@ class ElevatorTests: XCTestCase {
 }
 
 class ManualEngine: EngineProtocol {
+    var onChange: (() -> Void)?
+    var diff: Int?
     func move(to floorDiff: Int, onChange: @escaping () -> Void) {
-        let timeToWait = TimeInterval(abs(floorDiff))
-        DispatchQueue.main.asyncAfter(deadline: .now() + timeToWait) {
-            onChange()
+        self.onChange = onChange
+        self.diff = floorDiff
+    }
+    
+    func wait(_ sec: Int) {
+        if sec == diff.map { abs($0) } {
+            onChange?()
         }
     }
 }
