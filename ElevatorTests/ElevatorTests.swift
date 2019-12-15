@@ -58,7 +58,7 @@ class ElevatorTests: XCTestCase {
         
         elevator.call(to: 2)
         
-        XCTAssertEqual(elevator.destination, 2)
+        XCTAssertEqual(elevator.destinations, [2])
         XCTAssertTrue(elevator.isMoving)
     }
     
@@ -68,7 +68,7 @@ class ElevatorTests: XCTestCase {
         elevator.call(to: 2)
         wait(1)
         
-        XCTAssertNil(elevator.destination)
+        XCTAssertTrue(elevator.destinations.isEmpty)
         XCTAssertFalse(elevator.isMoving)
     }
     
@@ -97,6 +97,23 @@ class ElevatorTests: XCTestCase {
         wait(1)
         XCTAssertEqual(elevator.doors.state, .open)
     }
+    
+    // MARK: - Add passengers alongside route
+    
+    func test_onFirstFloorAndMovesTo3_whenRequestTo2ndFloor_shouldStopOn2ndFloorAndOpenDoors() {
+        elevator.call(to: 3)
+        elevator.call(to: 2)
+        wait(1)
+        XCTAssertEqual(elevator.currentFloor, 2)
+        XCTAssertEqual(elevator.doors.state, .open)
+    }
+    
+//    func test_onFirstFloorAndMovesTo3_whenRequestTo2ndFloor_shouldStopAt3rdFloorAsResult() {
+//        elevator.call(to: 3)
+//        elevator.call(to: 2)
+//        wait(2)
+//        XCTAssertEqual(elevator.currentFloor, 3)
+//    }
 
     func wait(_ sec: Int) {
         engine.wait(sec)

@@ -28,10 +28,10 @@ class Elevator {
     
     let floorsCount: Int
     var currentFloor: Int = 1
-    var destination: Int?
+    var destinations: [Int] = []
     
     var isMoving: Bool {
-        return destination != nil
+        return !destinations.isEmpty
     }
     
     func call(to callingFloor: Int) {
@@ -45,7 +45,7 @@ class Elevator {
     
     private func move(to floor: Int) {
         doors.close()
-        destination = floor
+        destinations.append(floor)
         
         let floorDiff = currentFloor - floor
         engine.move(to: floorDiff, onChange: {
@@ -55,7 +55,7 @@ class Elevator {
     
     private func finishMovement(on floor: Int) {
         currentFloor = floor
-        destination = nil
+        destinations.removeAll()
         doors.open()
     }
     
