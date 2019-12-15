@@ -114,6 +114,14 @@ class ElevatorTests: XCTestCase {
         wait(2)
         XCTAssertEqual(elevator.currentFloor, 3)
     }
+    
+    func test_onFirstFloorAndMovesTo2_whenRequestTo4thFloor_shouldStopAt4thFloorAsResult() {
+        elevator.call(to: 2)
+        elevator.call(to: 4)
+        wait(3)
+        XCTAssertEqual(elevator.currentFloor, 4)
+    }
+
 
     func wait(_ sec: Int) {
         engine.wait(sec)
