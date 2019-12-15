@@ -46,17 +46,33 @@ class Elevator {
     private func move(to floor: Int) {
         doors.close()
         destinations.append(floor)
+        destinations.sort()
         
-        let floorDiff = currentFloor - floor
+        guard !engine.isMoving else { return }
+        moveToNextDestination()
+    }
+    
+    private func moveToNextDestination() {
+        let nextFloor = destinations.first!
+        let floorDiff = nextFloor - currentFloor
+        
         engine.move(to: floorDiff, onChange: {
-            self.finishMovement(on: floor)
+            self.stop(on: nextFloor)
+            
+            guard self.hasDestinations else { return }
+            self.moveToNextDestination()
         })
     }
     
-    private func finishMovement(on floor: Int) {
+    private var hasDestinations: Bool { !destinations.isEmpty }
+    
+    private func stop(on floor: Int) {
         currentFloor = floor
-        destinations.removeAll()
         doors.open()
+        
+        destinations.removeAll { (value) -> Bool in
+            value == floor
+        }
     }
     
     let doors = Doors()
@@ -81,5 +97,6 @@ class Doors {
 
 protocol EngineProtocol {
     func move(to floorDiff: Int, onChange: @escaping () -> Void)
+    var isMoving: Bool { get }
 }
 

@@ -100,20 +100,20 @@ class ElevatorTests: XCTestCase {
     
     // MARK: - Add passengers alongside route
     
-    func test_onFirstFloorAndMovesTo3_whenRequestTo2ndFloor_shouldStopOn2ndFloorAndOpenDoors() {
-        elevator.call(to: 3)
+    func test_onFirstFloorAndMovesTo2_whenRequestTo3rdFloor_shouldStopOn2ndFloorAndOpenDoors() {
         elevator.call(to: 2)
+        elevator.call(to: 3)
         wait(1)
         XCTAssertEqual(elevator.currentFloor, 2)
         XCTAssertEqual(elevator.doors.state, .open)
     }
     
-//    func test_onFirstFloorAndMovesTo3_whenRequestTo2ndFloor_shouldStopAt3rdFloorAsResult() {
-//        elevator.call(to: 3)
-//        elevator.call(to: 2)
-//        wait(2)
-//        XCTAssertEqual(elevator.currentFloor, 3)
-//    }
+    func test_onFirstFloorAndMovesTo2_whenRequestTo3rdFloor_shouldStopAt3rdFloorAsResult() {
+        elevator.call(to: 2)
+        elevator.call(to: 3)
+        wait(2)
+        XCTAssertEqual(elevator.currentFloor, 3)
+    }
 
     func wait(_ sec: Int) {
         engine.wait(sec)
@@ -134,14 +134,29 @@ class ElevatorTests: XCTestCase {
 class ManualEngine: EngineProtocol {
     var onChange: (() -> Void)?
     var diff: Int?
+    
+    var isMoving: Bool { diff != nil }
     func move(to floorDiff: Int, onChange: @escaping () -> Void) {
         self.onChange = onChange
         self.diff = floorDiff
     }
     
     func wait(_ sec: Int) {
-        if sec == diff.map { abs($0) } {
-            onChange?()
+        for _ in 0..<sec {
+            diff?.reduceToZero(step: 1)
+            if diff == 0 {
+                onChange?()
+            }
+        }
+    }
+}
+
+extension Int {
+    mutating func reduceToZero(step: Int) {
+        if self < 0 {
+            self += step
+        } else {
+            self -= step
         }
     }
 }
