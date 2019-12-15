@@ -53,7 +53,7 @@ class ElevatorTests: XCTestCase {
         XCTAssertFalse(elevator.isMoving)
     }
     
-    func test_elevatorOn1stFloor_whenCallTo2ndFloor_shouldMoveTo2ndFloor() {
+    func test_elevatorOn1stFloor_whenCallTo2ndFloor_shouldStartMovementTo2ndFloor() {
         elevator.currentFloor = 1
         
         elevator.call(to: 2)
@@ -72,7 +72,7 @@ class ElevatorTests: XCTestCase {
         XCTAssertFalse(elevator.isMoving)
     }
     
-    func test_on1stFloor_whenCallTo2ndAndWait_shouldBeOn2ndFloor() {
+    func test_on1stFloor_whenCallTo2ndAndWait_shouldMoveTo2ndFloor() {
         elevator.currentFloor = 1
         
         elevator.call(to: 2)
@@ -81,7 +81,7 @@ class ElevatorTests: XCTestCase {
         XCTAssertEqual(elevator.currentFloor, 2)
     }
     
-    func test_whenMoveElevatorAfterManEnters_shouldCloseDoors() {
+    func test_whenMoveElevatorAfterManEnters_shouldCloseDoorsOnMoveStart() {
         elevator.currentFloor = 1
         
         elevator.call(to: 1)
@@ -89,7 +89,7 @@ class ElevatorTests: XCTestCase {
         XCTAssertEqual(elevator.doors.state, .close)
     }
     
-    func test_whenMoveElevatorAfterManEnters_andArriveToFloor_shouldOpenDoors() {
+    func test_whenMoveElevatorAfterManEnters_andArriveToFloor_shouldOpenDoorsOnExit() {
         elevator.currentFloor = 1
         elevator.call(to: 1) // Open doors, enter
         
