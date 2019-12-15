@@ -28,7 +28,8 @@ class BuildingTests: XCTestCase {
             floors: 16,
             elevator: Elevator(
                 floors: 16,
-                engine: ManualEngine()))
+                engine: ManualEngine(),
+                timer: TimerMock()))
 
         XCTAssertNotNil(building.elevator)
     }

@@ -21,9 +21,10 @@ struct Building {
 
 
 class Elevator {
-    init(floors: Int, engine: EngineProtocol) {
+    init(floors: Int, engine: EngineProtocol, timer: ElevatorTimer) {
         self.floorsCount = floors
         self.engine = engine
+        self.timer = timer
     }
     
     let floorsCount: Int
@@ -44,23 +45,29 @@ class Elevator {
     }
     
     private func move(to floor: Int) {
-        doors.close()
         destinations.append(floor)
         destinations.sort()
         
         guard !engine.isMoving else { return }
+        
         moveToNextDestination()
     }
     
     private func moveToNextDestination() {
+        doors.close()
+        
         let nextFloor = destinations.first!
         let floorDiff = nextFloor - currentFloor
         
-        engine.move(to: floorDiff, onChange: {
+        engine.move(to: floorDiff,
+                    onChange: { elapsedDiff in
+                        self.currentFloor += elapsedDiff
+        }, onStop: {
             self.stop(on: nextFloor)
-            
-            guard self.hasDestinations else { return }
-            self.moveToNextDestination()
+            self.timer.waitWhilePeopleExits(then: {
+                guard self.hasDestinations else { return }
+                self.moveToNextDestination()
+            })
         })
     }
     
@@ -75,6 +82,7 @@ class Elevator {
         }
     }
     
+    private let timer: ElevatorTimer
     let doors = Doors()
     private let engine: EngineProtocol
 }
@@ -95,8 +103,14 @@ class Doors {
     }
 }
 
+protocol ElevatorTimer {
+    func waitWhilePeopleExits(then nextAction: @escaping () -> Void)
+}
+
 protocol EngineProtocol {
-    func move(to floorDiff: Int, onChange: @escaping () -> Void)
+    func move(to floorDiff: Int,
+              onChange: @escaping (_ elapsedDiff: Int) -> Void,
+              onStop: @escaping () -> Void)
     var isMoving: Bool { get }
 }
 
